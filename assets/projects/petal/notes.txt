@@ -1,0 +1,4 @@
+PETAL (NASA RASC-AL 2026)
+Drop here: CAD renders, the regolith burial thermal sim figure, a photo presenting in Cocoa Beach.
+Facts: lead systems engineer; 120 kWe lunar fission grid; 11 subsystems; 34,300 kg launch limit; 3 m regolith burial, 508 K drop; 1 of 14 teams from 150+ (finalist, never 'semifinalist').
+Anything to add (your own words): This was a project that planted the seeds of space robotics in my mind. We touched upon them frequently in the construction of our moon outpost and I always found this was my favorite part of the project. Another favorite part of the project was getting to touch CFD software to demonstrate the heat distribution of our nuclear reactors. It was interesting to learn to use the new type of simulation and helpful to have for future projects.

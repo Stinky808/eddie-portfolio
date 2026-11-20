@@ -1,0 +1,19 @@
+node_modules/
+temporary screenshots/
+.DS_Store
+Thumbs.db
+*.bak
+
+# Raw source media stays local. The site only uses the optimized assets/projects/*/web/ files.
+# This keeps the repo light and avoids GitHub's 100 MB per-file limit.
+assets/projects/**
+!assets/projects/
+!assets/projects/*/
+!assets/projects/*/web/
+!assets/projects/*/web/**
+!assets/projects/*/notes.txt
+
+# big raw drops + my scratch
+media/
+_to_delete/
+_review/

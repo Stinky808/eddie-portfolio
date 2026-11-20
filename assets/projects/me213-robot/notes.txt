@@ -1,0 +1,4 @@
+ME 213 stair-climbing egg retrieval robot
+Drop here: video of it climbing stairs, the grabber grabbing the egg, FEA stress plots, shop photos.
+Facts: team of 9; wheel FEA min FoS 2.05 to 7.5+; machining, PETG printing, soldering, CAD rework; pneumatic grabber worked at competition.
+Was the grabber yours? Anything to add: grabber was not mine but. i don't think the phrasing is right to say that i "owned much of the build" more so that i assisted with a little bit of something throughout every subsystem, i definitely touched every subsystem helping to guide team members with less experience and allowing them space to actually build the skills instead of doing it for them

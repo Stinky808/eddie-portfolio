@@ -1,0 +1,4 @@
+QuackHacks 3 search-and-rescue rover (Univ. of Oregon, May 2026)
+Drop here: the rover, the wiring harness, the team.
+Facts: only hardware person on a team of 4; full electronics in under 5 hours; two buck converters fried, restructured power delivery, rover ran untethered.
+Anything to add:

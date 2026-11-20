@@ -1,0 +1,4 @@
+URC 2026-2027 AstroBio payload (Team RoSE)
+Drop here: CAD screenshots, parts list snapshot, any hardware photos as it gets built.
+Facts: payload engineer; searches for simulated signs of life; CAD + parts list done, mass budget in progress.
+Anything to add:

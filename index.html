@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eddie Kuoha IV · Mechanical Engineer</title>
+<meta name="description" content="Eddie Kuoha IV, mechanical engineering student at UH Manoa building hardware for space robotics.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+/*
+  Design plan
+  Idea: an engineering drawing set. Every project is a drawing sheet with a title block,
+  because that's the document mechanical engineers actually hand each other.
+  Color: drafting vellum + graphite ink, with one accent pulled from flight hardware (Kapton/MLI gold).
+  Type: Archivo only. Expanded width for display, normal width for reading. Contrast comes from width, not a second font.
+  Layout: left aligned. Home is a sheet index (cards); each card opens its own full sheet.
+*/
+:root{
+  --vellum:#DCE7CF;      /* page: engineering-pad green */
+  --sheet:#EEF3E6;       /* drawing sheet surface */
+  --ink:#1C2430;         /* graphite text + lines */
+  --ink-soft:#4A5562;    /* secondary text */
+  --rule:#AEBE9C;        /* light construction lines */
+  --kapton:#B7801A;      /* the one accent: flight-hardware gold */
+  --kapton-deep:#8C5F0E;
+
+  --space-1:4px; --space-2:8px; --space-3:16px; --space-4:24px; --space-5:40px; --space-6:64px; --space-7:112px;
+  --wide:"Archivo",system-ui,sans-serif;
+  --lift:0 1px 0 rgba(28,36,48,.06), 0 12px 32px -18px rgba(28,36,48,.28);
+  --lift-hi:0 2px 0 rgba(28,36,48,.08), 0 26px 50px -22px rgba(28,36,48,.45);
+  --spring:cubic-bezier(.2,.9,.25,1.15);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--vellum);color:var(--ink);
+  font-family:var(--wide);font-variation-settings:"wdth" 100;
+  font-size:17px;line-height:1.65;
+  background-image:
+    linear-gradient(rgba(53,82,38,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(53,82,38,.07) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--kapton);outline-offset:3px;border-radius:2px}
+img,video{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--space-3)}
+@media(min-width:720px){.wrap{padding:0 var(--space-5)}}
+[hidden]{display:none!important}
+
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);padding:var(--space-4) 0;font-size:15px}
+.top .mark{font-weight:700;font-variation-settings:"wdth" 125;letter-spacing:-.01em;text-decoration:none}
+.top nav{display:flex;gap:var(--space-4)}
+.top nav a{text-decoration:none;color:var(--ink-soft)}
+.top nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding:var(--space-6) 0;display:grid;grid-template-columns:1fr;gap:var(--space-5);align-items:start}
+@media(min-width:880px){.hero{grid-template-columns:minmax(0,1fr) minmax(300px,360px);gap:var(--space-7)}}
+.hero-photo{max-width:360px}
+@media(min-width:880px){.hero-photo{margin-top:var(--space-2)}}
+.hero-photo .ph-frame{position:relative;border:1.5px solid var(--ink);box-shadow:var(--lift)}
+.hero-photo .ph-frame img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.hero-photo .ph-frame::before,.hero-photo .ph-frame::after{content:"";position:absolute;width:14px;height:14px;border-color:var(--kapton);border-style:solid;z-index:1}
+.hero-photo .ph-frame::before{top:-1px;left:-1px;border-width:1.5px 0 0 1.5px}
+.hero-photo .ph-frame::after{bottom:-1px;right:-1px;border-width:0 1.5px 1.5px 0}
+.hero h1{margin:0;font-weight:800;font-variation-settings:"wdth" 125;font-size:clamp(44px,9vw,112px);line-height:.92;letter-spacing:-.035em}
+.hero p.lede{max-width:34ch;font-size:clamp(19px,2.2vw,24px);line-height:1.45;margin:var(--space-4) 0 0;color:var(--ink)}
+.hero .actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-top:var(--space-5)}
+.btn{display:inline-block;padding:12px 20px;text-decoration:none;font-weight:600;font-size:16px;border:1.5px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--sheet);transition:transform .25s var(--spring),background-color .2s ease}
+.btn:hover{background:var(--kapton-deep);border-color:var(--kapton-deep)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--sheet)}
+
+/* title block: the signature element */
+.tblock{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1.5px solid var(--ink);background:var(--sheet);font-size:14px;line-height:1.35}
+.tblock div{padding:10px 12px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);min-width:0}
+.tblock div:nth-child(2n){border-right:0}
+.tblock div:nth-last-child(-n+2){border-bottom:0}
+.tblock .k{display:block;font-size:11.5px;color:var(--ink-soft);margin-bottom:2px}
+.tblock .v{font-weight:600}
+.tblock .wide{grid-column:1/-1;border-right:0}
+.hero .tblock{margin-top:var(--space-6);max-width:560px}
+
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-3);border-bottom:1.5px solid var(--ink);padding-bottom:var(--space-2);margin:var(--space-6) 0 var(--space-5)}
+.section-head h2{margin:0;font-variation-settings:"wdth" 125;font-weight:700;font-size:28px;letter-spacing:-.02em}
+.section-head p{margin:0;color:var(--ink-soft);font-size:15px}
+
+/* home: sheet index (cards) */
+.cards{display:grid;grid-template-columns:1fr;gap:var(--space-5)}
+@media(min-width:760px){.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-6) var(--space-5)}}
+.card{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--sheet);border:1.5px solid var(--ink);box-shadow:var(--lift);transition:transform .3s var(--spring),box-shadow .3s var(--spring)}
+.card::before,.card::after{content:"";position:absolute;width:13px;height:13px;border-color:var(--kapton);border-style:solid;transition:all .3s var(--spring)}
+.card::before{top:-7px;left:-7px;border-width:2px 0 0 2px}
+.card::after{bottom:-7px;right:-7px;border-width:0 2px 2px 0}
+@media (prefers-reduced-motion:no-preference){
+  .card:hover,.card:focus-visible{transform:translateY(-6px);box-shadow:var(--lift-hi)}
+  .card:hover::before,.card:focus-visible::before{top:-10px;left:-10px}
+  .card:hover::after,.card:focus-visible::after{bottom:-10px;right:-10px}
+}
+.card .thumb{position:relative;aspect-ratio:16/10;background:#D9DED8;border-bottom:1.5px solid var(--ink);overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover}
+.card:hover .thumb img{transform:scale(1.03)}
+.card .thumb img{transition:transform .5s var(--spring)}
+.slot{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:var(--space-4);color:var(--ink-soft);font-size:14px;background:repeating-linear-gradient(45deg,transparent 0 14px,rgba(28,36,48,.05) 14px 15px)}
+.slot b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+.card .cbody{padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-2);flex:1}
+.card h3{margin:0;font-variation-settings:"wdth" 118;font-weight:750;font-size:clamp(22px,2.4vw,27px);line-height:1.08;letter-spacing:-.02em}
+.card .over{margin:0;color:var(--ink);font-size:15.5px;line-height:1.5}
+.card .meta{margin-top:auto;display:flex;align-items:center;gap:var(--space-3);padding-top:var(--space-3);color:var(--ink-soft);font-size:13px}
+.card .meta .role{font-weight:600;color:var(--ink)}
+.card .open{color:var(--kapton-deep);font-weight:600;font-size:14px;margin-left:auto}
+.card .flag{position:absolute;top:var(--space-3);left:var(--space-3);background:var(--kapton);color:#fff;font-size:11.5px;font-weight:600;padding:3px 8px;border-radius:2px;letter-spacing:.01em}
+
+/* detail view */
+.back{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink-soft);font-size:15px;font-weight:600;margin:var(--space-3) 0 0}
+.back:hover{color:var(--ink)}
+.detail-head{padding:var(--space-5) 0 0}
+.detail-head h1{margin:0;font-variation-settings:"wdth" 120;font-weight:800;font-size:clamp(32px,5.4vw,60px);line-height:1;letter-spacing:-.03em;max-width:18ch}
+.detail-head .lede{max-width:60ch;font-size:clamp(18px,2vw,21px);margin:var(--space-4) 0 0}
+.detail-grid{display:grid;grid-template-columns:1fr;gap:var(--space-5);margin-top:var(--space-5)}
+@media(min-width:900px){.detail-grid{grid-template-columns:minmax(0,1fr) minmax(0,320px);align-items:start}}
+.writeup p{margin:0 0 var(--space-3);max-width:62ch}
+.writeup ul{margin:0;padding-left:1.1em;max-width:62ch}
+.writeup li{margin:.4em 0}
+.status{color:var(--kapton-deep);font-weight:600}
+.detail-grid .tblock{position:sticky;top:var(--space-3)}
+@media(max-width:899px){.detail-grid .tblock{position:static}}
+
+.gallery-head{border-bottom:1.5px solid var(--ink);padding-bottom:var(--space-2);margin:var(--space-6) 0 var(--space-5);font-variation-settings:"wdth" 120;font-weight:700;font-size:22px;letter-spacing:-.01em}
+.gallery{display:grid;grid-template-columns:1fr;gap:var(--space-5)}
+@media(min-width:620px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+figure.fig{margin:0;align-self:start;background:var(--sheet);border:1.5px solid var(--ink);box-shadow:var(--lift)}
+figure.fig-model{margin:0}
+figure.fig-model.span{grid-column:1/-1}
+figure.fig-model .mv-box{width:100%;height:500px;border:1.5px solid var(--ink);background:#fff;box-shadow:var(--lift)}
+figure.fig-model model-viewer{display:block;width:100%;height:100%;background:transparent}
+@media(max-width:620px){figure.fig-model .mv-box{height:380px}}
+figure.fig-model figcaption{padding:10px 14px;border:1.5px solid var(--ink);border-top:0;background:var(--sheet);font-size:14px;color:var(--ink-soft);line-height:1.4}
+figure.fig.span{grid-column:1/-1}
+figure.fig .frame{margin:0;border:0;padding:0;width:100%;background:#D9DED8;cursor:zoom-in;display:block}
+figure.fig .frame img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+figure.fig.tall .frame img{aspect-ratio:4/3;object-fit:contain;background:#fff}
+figure.fig video{width:100%;height:auto;display:block;background:#000}
+figure.fig.vert video{max-height:76vh;width:auto;margin:0 auto}
+figure.fig figcaption{padding:10px 14px;border-top:1.5px solid var(--ink);font-size:14px;color:var(--ink-soft);line-height:1.4}
+figure.fig .hint{color:var(--ink-soft);font-style:italic}
+.docs{margin-top:var(--space-5);border-top:1.5px solid var(--ink);padding-top:var(--space-3)}
+.docs-h{display:block;font-size:12px;color:var(--ink-soft);margin-bottom:var(--space-2);font-weight:600;letter-spacing:.02em}
+.doc{display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);text-decoration:none;color:var(--ink);border:1.5px solid var(--ink);background:var(--sheet);padding:11px 14px;margin-bottom:8px;transition:background-color .15s ease,color .15s ease}
+.doc:hover{background:var(--ink);color:var(--sheet)}
+.doc-n{font-weight:600}
+.doc-m{font-size:13px;color:var(--ink-soft);white-space:nowrap}
+.doc:hover .doc-m{color:var(--sheet)}
+.pending{grid-column:1/-1;border:1.5px dashed var(--ink);background:repeating-linear-gradient(45deg,transparent 0 14px,rgba(28,36,48,.05) 14px 15px);padding:var(--space-5);text-align:center;color:var(--ink-soft)}
+.pending b{color:var(--ink)}
+.detail-nav{display:flex;justify-content:space-between;gap:var(--space-3);border-top:1.5px solid var(--ink);margin-top:var(--space-6);padding:var(--space-4) 0 0}
+.detail-nav a{text-decoration:none;color:var(--ink-soft);font-weight:600;max-width:46%}
+.detail-nav a:hover{color:var(--ink)}
+.detail-nav .k{display:block;font-size:12px;color:var(--ink-soft);font-weight:400}
+
+/* about + contact */
+.about{display:grid;gap:var(--space-5);grid-template-columns:1fr}
+@media(min-width:900px){.about{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}}
+.about p{margin:0 0 var(--space-3);max-width:62ch}
+.about-photo{margin:var(--space-5) 0 0;border:1.5px solid var(--ink);box-shadow:var(--lift);background:var(--sheet)}
+.about-photo img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.about-photo figcaption{padding:10px 14px;border-top:1.5px solid var(--ink);font-size:14px;color:var(--ink-soft)}
+.contact{border-top:1.5px solid var(--ink);margin-top:var(--space-7);padding:var(--space-5) 0 var(--space-6);display:flex;flex-wrap:wrap;gap:var(--space-4);justify-content:space-between;align-items:end}
+.contact h2{margin:0;font-variation-settings:"wdth" 125;font-weight:800;font-size:clamp(32px,5vw,56px);letter-spacing:-.03em;line-height:1}
+.contact .links{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+footer{font-size:13px;color:var(--ink-soft);padding-bottom:var(--space-5)}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(18,24,20,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--space-4);gap:var(--space-3)}
+.lightbox img{max-width:min(1100px,94vw);max-height:84vh;object-fit:contain;border:1px solid rgba(255,255,255,.15)}
+.lightbox figcaption{color:#e8ece4;font-size:14px;max-width:70ch;text-align:center}
+.lightbox .x{position:absolute;top:16px;right:20px;color:#fff;background:none;border:0;font-size:30px;line-height:1;cursor:pointer}
+
+@media (prefers-reduced-motion:no-preference){
+  .hero h1,.hero .lede,.hero .actions,.hero .tblock{opacity:0;transform:translateY(10px);animation:in .7s var(--spring) forwards}
+  .hero .lede{animation-delay:.08s}.hero .actions{animation-delay:.14s}.hero .tblock{animation-delay:.22s}
+  @keyframes in{to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="mark" href="#">Eddie Kuoha IV</a>
+    <nav aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <main id="home">
+    <section class="hero" aria-labelledby="name">
+      <div class="hero-main">
+        <h1 id="name">Eddie<br>Kuoha IV</h1>
+        <p class="lede">I'm a mechanical engineering student who builds robot hardware, and I'm working toward a career in space robotics.</p>
+        <div class="actions">
+          <a class="btn" href="#work">See my projects</a>
+          <a class="btn ghost" href="assets/Kuoha_Edward_Resume.pdf">Resume (PDF)</a>
+        </div>
+        <div class="tblock" role="list" aria-label="Quick facts">
+          <div role="listitem"><span class="k">School</span><span class="v">University of Hawaii at Manoa</span></div>
+          <div role="listitem"><span class="k">Major</span><span class="v">Mechanical Engineering, class of 2028</span></div>
+          <div role="listitem"><span class="k">Focus</span><span class="v">Space robotics hardware</span></div>
+          <div role="listitem"><span class="k">Available</span><span class="v">Spring and Summer 2027</span></div>
+        </div>
+      </div>
+      <aside class="hero-photo">
+        <div class="ph-frame"><img src="assets/hero.jpg" alt="Eddie Kuoha IV"></div>
+      </aside>
+    </section>
+
+    <section id="about" aria-labelledby="about-h">
+      <div class="section-head"><h2 id="about-h">About</h2></div>
+      <div class="about">
+        <div>
+          <!-- Placeholder copy. Rewrite in your own words. -->
+          <p>I grew up in Aiea and almost became an electrician. I picked engineering on a whim, switched to mechanical, and it clicked in ME 213 when our robot actually worked. I like making something out of nothing.</p>
+          <p>Now I'm narrowing that down to space robotics. Outside class I co-founded UH Manoa's IEEE Robotics and Automation Society club, and this past summer I did an NSF REU at the University of Washington.</p>
+        </div>
+        <div class="tblock" aria-label="Experience">
+          <div class="wide"><span class="k">Ongoing</span><span class="v">Undergraduate researcher, Dr. Drew's lab at UH Manoa</span></div>
+          <div class="wide"><span class="k">2026 to 2027</span><span class="v">Payload engineer, University Rover Challenge (Team RoSE)</span></div>
+          <div class="wide"><span class="k">2026</span><span class="v">NSF REU Fellow, University of Washington MEM-C</span></div>
+          <div class="wide"><span class="k">2025 to 2026</span><span class="v">Lead systems engineer, NASA RASC-AL finalist team</span></div>
+          <div class="wide"><span class="k">Ongoing</span><span class="v">Co-founder, IEEE RAS at UH Manoa</span></div>
+        </div>
+      </div>
+      <figure class="about-photo">
+        <img src="assets/about-eddie.jpg" alt="Eddie standing with a microphone asking a question at an industry event">
+        <figcaption>Asking a question at an industry forum in Seattle.</figcaption>
+      </figure>
+    </section>
+
+    <section id="work" aria-labelledby="work-h">
+      <div class="section-head"><h2 id="work-h">Projects</h2><p>Hardware I designed, built, or led</p></div>
+      <div class="cards" id="cards"></div>
+    </section>
+  </main>
+
+  <!-- DETAIL (filled by JS) -->
+  <main id="project" hidden></main>
+
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">Let's talk.</h2>
+    <div class="links">
+      <a class="btn" href="mailto:ek808@hawaii.edu">ek808@hawaii.edu</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/edward-iv/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </section>
+
+  <footer>Built in Honolulu.</footer>
+</div>
+
+<script>
+/* ---- project data: add a project by appending an object + dropping media in assets/projects/<id>/web/ ---- */
+const PROJECTS = [
+  {
+    id:"petal",
+    title:"PETAL: a nuclear power grid for the Moon",
+    role:"Lead systems engineer", date:"2025 to 2026", team:"UH Manoa + UH Hilo",
+    tools:"Autodesk CFD, systems trades, technical writing",
+    over:"A 120 kWe fission power grid for the lunar surface. Our team was picked as 1 of 14 from 150+ to present it to NASA.",
+    cover:{src:"assets/projects/petal/web/photo3.jpg", alt:"Team PETAL presenting in front of a Project PETAL title slide"},
+    lede:"NASA RASC-AL 2026. Our team designed a 120 kWe fission power grid for the lunar surface and was selected as 1 of 14 teams from 150+ to present it to NASA and industry judges in Cocoa Beach.",
+    body:`<ul>
+      <li>Led architecture selection across 11 subsystems to fit a 34,300 kg launch limit.</li>
+      <li>Ran the thermal simulations behind our key call: burying the reactor under 3 m of regolith, which dropped 508 K across the berm.</li>
+      <li>Kept a team split between UH Manoa and UH Hilo on schedule.</li>
+    </ul>`,
+    media:[
+      {type:"img", src:"assets/projects/petal/web/berm-diagram.png", cap:"What we simulated: a 15 kWe reactor buried under a regolith berm, with titanium heat pipes carrying heat up through it."},
+      {type:"img", tall:true, src:"assets/projects/petal/web/figure.jpg", cap:"The thermal simulation behind our key call: burying the reactor under 3 m of regolith dropped 508 K across the berm."},
+      {type:"img", src:"assets/projects/petal/web/photo1.jpg", cap:"Team PETAL."},
+      {type:"img", src:"assets/projects/petal/web/photo3.jpg", cap:"Presenting at the RASC-AL forum in Cocoa Beach."},
+      {type:"img", tall:true, src:"assets/projects/petal/web/poster.jpg", cap:"Our RASC-AL digital poster."}
+    ],
+    docs:[
+      {name:"Technical paper", type:"PDF", size:"1.8 MB", src:"assets/projects/petal/web/PETAL-technical-paper.pdf"},
+      {name:"Proposal paper", type:"PDF", size:"0.6 MB", src:"assets/projects/petal/web/PETAL-proposal.pdf"},
+      {name:"Full chart deck, 69 slides", type:"PDF", size:"9.2 MB", src:"assets/projects/petal/web/PETAL-chart-deck.pdf"}
+    ]
+  },
+  {
+    id:"me213",
+    title:"Stair-climbing egg retrieval robot",
+    role:"Lead systems engineer", date:"Spring 2026", team:"9 students",
+    tools:"SolidWorks FEA, manual machining, PETG printing, soldering",
+    over:"A robot that climbs stairs, grabs an egg, and carries it back. I was lead systems engineer and designed the tri-spoke climbing wheels.",
+    cover:{src:"assets/projects/me213-robot/web/wheel-in-hand.jpg", alt:"The ME 213 team doing last-minute repairs on the robot at a workbench"},
+    lede:"ME 213 team project: build a robot that climbs a set of stairs, picks up an egg at the top, and carries it back down. There were nine of us and I was the lead systems engineer.",
+    body:`<ul>
+      <li>Designed the tri-spoke climbing wheels and ran von Mises FEA in SolidWorks. The first geometry had a minimum factor of safety of 2.05; after reworking the spokes it was over 7.5.</li>
+      <li>Worked across every subsystem, mostly alongside teammates with less experience: machining, PETG printing, soldering, and CAD rework. I tried to guide people and leave them room to build the skill instead of doing it for them.</li>
+      <li>A teammate led the pneumatic grabber. I helped where I could, and it worked at competition.</li>
+    </ul>`,
+    media:[
+      {type:"img", src:"assets/projects/me213-robot/web/team.jpg", cap:"The ME 213 team. Nine of us."},
+      {type:"video", src:"assets/projects/me213-robot/web/stair-climb.mp4", w:720, h:1280, poster:"assets/projects/me213-robot/web/stair-climb-poster.jpg", cap:"The robot at the competition stairs."},
+      {type:"video", src:"assets/projects/me213-robot/web/grabber.mp4", w:360, h:640, poster:"assets/projects/me213-robot/web/grabber-poster.jpg", cap:"The full run at competition: the robot climbs the stairs and the grabber picks up the egg at the top."},
+      {type:"img", src:"assets/projects/me213-robot/web/wheel-in-hand.jpg", cap:"Last-minute repairs in the machine shop before competition."},
+      {type:"img", tall:true, src:"assets/projects/me213-robot/web/wheel-exploded.png", cap:"Exploded view of the wheel assembly in CAD."},
+      {type:"img", tall:true, src:"assets/projects/me213-robot/web/wheel-fea.png", cap:"von Mises FEA on the spoke. Reworking the geometry took the minimum factor of safety from 2.05 to over 7.5."},
+      {type:"model", src:"assets/projects/me213-robot/web/wheel.glb", cap:"The tri-spoke climbing wheel."},
+      {type:"img", src:"assets/projects/me213-robot/web/overhead-build.jpg", cap:"The robot from above: tri-spoke wheels, power board, and wiring."},
+      {type:"img", src:"assets/projects/me213-robot/web/grabber.jpg", cap:"The pneumatic grabber. A teammate led it; I helped where I could."},
+      {type:"img", src:"assets/projects/me213-robot/web/electronics-bay.jpg", cap:"Power and control bay: terminal blocks, a relay, the 5200 mAh LiPo, and the pneumatic line."},
+      {type:"img", src:"assets/projects/me213-robot/web/bringup.jpg", cap:"Bench bring-up and debugging."},
+      {type:"img", src:"assets/projects/me213-robot/web/assembly-day.jpg", cap:"Assembly and testing day."}
+    ],
+    docs:[
+      {name:"Final presentation", type:"PDF", size:"3.8 MB", src:"assets/projects/me213-robot/web/ME213-presentation.pdf"}
+    ]
+  },
+  {
+    id:"quackhacks",
+    title:"Search-and-rescue rover in 24 hours",
+    role:"Head of hardware", date:"May 2026", team:"4 students",
+    tools:"Motor drivers, buck converters, wiring harness",
+    over:"QuackHacks 3 at the University of Oregon. I was the only hardware person on a team of four building an autonomous rover.",
+    cover:{src:"assets/projects/quackhacks-rover/web/harness-top.jpg", alt:"The rover from above, showing the wiring harness, battery, motor driver, and Raspberry Pi"},
+    lede:"QuackHacks 3 at the University of Oregon. I was the only hardware person on a team of four building an autonomous rover in 24 hours.",
+    body:`<ul>
+      <li>Built the full electronics in under five hours: motor drivers, buck converters, and the wiring harness.</li>
+      <li>When two buck converters fried mid-build, I restructured the power delivery and still delivered an untethered rover.</li>
+    </ul>`,
+    media:[
+      {type:"img", src:"assets/projects/quackhacks-rover/web/harness-top.jpg", cap:"The rover from above: LiPo, motor driver, Raspberry Pi, and the harness I wired."},
+      {type:"img", src:"assets/projects/quackhacks-rover/web/rover.jpg", cap:"The finished rover: tracked base, Raspberry Pi, and the camera it searched with."},
+      {type:"video", src:"assets/projects/quackhacks-rover/web/demo.mp4", w:1280, h:720, poster:"assets/projects/quackhacks-rover/web/demo-poster.jpg", cap:"The rover running untethered, searching for a person on the ground."},
+      {type:"img", src:"assets/projects/quackhacks-rover/web/bench.jpg", cap:"Bench work the first night. Most of the debugging happened here."},
+      {type:"img", src:"assets/projects/quackhacks-rover/web/harness-table.jpg", cap:"Power delivery rebuilt after two buck converters fried."},
+      {type:"img", src:"assets/projects/quackhacks-rover/web/team.jpg", cap:"The team. Four of us, and I was the only one on hardware."}
+    ]
+  },
+  {
+    id:"uw-reu",
+    title:"Synthesizing a cobalt indium carbide",
+    role:"NSF REU fellow", date:"Summer 2026", team:"Rorrer group, UW MEM-C",
+    tools:"Solid-state synthesis, powder XRD, phase identification",
+    over:"Ten weeks at the University of Washington trying to make Co3InCx, an antiperovskite carbide studied as a CO2 hydrogenation catalyst.",
+    cover:{src:"assets/projects/uw-reu/web/furnace-rig.jpg", alt:"The tube furnace in the Rorrer lab set up for a carburization run, with a whiteboard listing the conditions"},
+    lede:"I spent the summer as an NSF REU fellow at the University of Washington's Molecular Engineering Materials Center, in Julie Rorrer's group, working under Leo Brody. The goal was to synthesize Co3InCx, an antiperovskite-type bimetallic carbide that the literature points at for hydrogenating CO2 to methanol.",
+    body:`<ul>
+      <li>Ran solid-state syntheses targeting the Co3InC0.75 phase and characterized every batch by powder XRD on a Bruker D8 Discover with a Cu K-alpha source.</li>
+      <li>Most runs did not give the target. I spent a lot of the summer identifying what I had actually made instead: metallic cobalt or indium, oxides like Co3O4 and In2O3, and Co-In intermetallics such as CoIn2 and CoIn3. Learning to read a diffraction pattern and tell those apart was the real skill I came away with.</li>
+      <li>Wrote up the work as a conference-style poster at the end of the program.</li>
+      <li>I also worked on moving the furnace rig's controls off proprietary LabVIEW onto open-source Python, leaning hard on AI tools to write the port, so the setup could be automated and shared.</li>
+      <li>This was wet-lab materials work, not robotics. I took it because I wanted to know what research actually feels like day to day, and it is the reason I went looking for a lab back home.</li>
+    </ul>`,
+    media:[
+      {type:"video", src:"assets/projects/uw-reu/web/synthesis.mp4", w:720, h:1280, poster:"assets/projects/uw-reu/web/synthesis-poster.jpg", cap:"A batch start to finish: weighing out the cobalt and indium nitrate precursors on the analytical balance before they go into the furnace."},
+      {type:"img", src:"assets/projects/uw-reu/web/sample-boat.jpg", cap:"A carburized sample in its ceramic boat, straight out of the tube furnace."},
+      {type:"img", src:"assets/projects/uw-reu/web/powder.jpg", cap:"The final antiperovskite carbide powder, ground down and ready for XRD."},
+      {type:"img", src:"assets/projects/uw-reu/web/furnace-rig.jpg", cap:"The tube furnace set up for a run. The whiteboard lists that day's gas ratio and temperature ramp."},
+      {type:"img", src:"assets/projects/uw-reu/web/gas-manifold.jpg", cap:"The gas manifold behind the furnace: solenoid valves and mass flow controllers for hydrogen, nitrogen, butane, and methane."},
+      {type:"img", span:true, src:"assets/projects/uw-reu/web/poster.jpg", cap:"My end-of-summer poster: Antiperovskite Carbide Synthesis via Temperature-Programmed Carburization."},
+      {type:"img", src:"assets/projects/uw-reu/web/presenting.jpg", cap:"Walking people through the poster at the forum."},
+      {type:"img", src:"assets/projects/uw-reu/web/lab-forum.jpg", cap:"With the Rorrer lab at the forum on my last days at UW."},
+      {type:"img", src:"assets/projects/uw-reu/web/uw-building.jpg", cap:"The Molecular Engineering and Sciences building at UW, where the lab is."}
+    ],
+    docs:[
+      {name:"Research poster", type:"PDF", size:"1.2 MB", src:"assets/projects/uw-reu/web/poster.pdf"},
+      {name:"Sol-gel synthesis literature review", type:"PDF", size:"1.7 MB", src:"assets/projects/uw-reu/web/litreview.pdf"}
+    ]
+  },
+  {
+    id:"gold-charm",
+    title:"Valorant Gold Rank Keychain",
+    role:"Everything", date:"Summer 2026", team:"Just me",
+    tools:"Onshape, Prusa MK4, soldering, Liquid Chrome finishing",
+    over:"A birthday gift for a friend: a replica Valorant gold rank charm with a translucent face, an LED inside, and a button hidden under the center diamond.",
+    cover:{src:"assets/projects/gold-charm/web/final-charm.jpg", alt:"The finished Valorant gold rank keychain: grey pentagon frame, translucent yellow face, chrome diamond center, on a keyring"},
+    lede:"A friend's birthday present. I modeled the Valorant gold rank badge in Onshape and built it as a real object: a grey pentagon frame, a translucent yellow face that glows, and a coin cell LED you switch on by pressing the chrome diamond in the middle.",
+    body:`<ul>
+      <li>CAD in Onshape, printed on a Prusa MK4. The body is a multi-part PLA sandwich: grey frame, a captured translucent yellow lens, and a separate diamond that presses the switch.</li>
+      <li>A warm white flat-top LED runs straight off a CR2032, no resistor needed at 3V. The switch is a latching six-pin button sitting behind the diamond, and the cell lives in a removable back cover so it can be swapped.</li>
+      <li>The diamond is wet-sanded, hit with Molotow Liquid Chrome, and sealed with Alclad Aqua Gloss. An M3 heat-set insert and eye bolt in the top boss take the lobster clip.</li>
+      <li>Nobody assigned this one. I wanted to see if I could take something off a screen and make it a physical object that works.</li>
+    </ul>`,
+    media:[
+      {type:"img", src:"assets/projects/gold-charm/web/breadboard.jpg", cap:"Breadboarding the LED and coin cell first to check the circuit before committing to the build."},
+      {type:"img", src:"assets/projects/gold-charm/web/printed.jpg", cap:"The printed frame and translucent face before the electronics went in."},
+      {type:"img", src:"assets/projects/gold-charm/web/internals.jpg", cap:"Inside the shell: the LED, the latching switch, and the wiring to the coin cell."},
+      {type:"video", src:"assets/projects/gold-charm/web/build.mp4", w:720, h:1280, poster:"assets/projects/gold-charm/web/build-poster.jpg", cap:"Assembly at my desk."},
+      {type:"video", src:"assets/projects/gold-charm/web/final.mp4", w:720, h:1280, poster:"assets/projects/gold-charm/web/final-poster.jpg", cap:"The finished charm, lighting up when the diamond is pressed."},
+      {type:"model", src:"assets/projects/gold-charm/web/charm.glb", cap:"Exploded view of the assembly."}
+    ]
+  }
+];
+
+/* ---- render ---- */
+const homeEl=document.getElementById("home"), projEl=document.getElementById("project"), cardsEl=document.getElementById("cards");
+
+function cardThumb(p){
+  if(p.cover) return `<div class="thumb"><img src="${p.cover.src}" alt="${p.cover.alt||''}" loading="lazy"></div>`;
+  return `<div class="thumb"><div class="slot"><div><b>Photos coming</b>Drop them in assets/projects/${p.id}/</div></div></div>`;
+}
+function buildCards(){
+  cardsEl.innerHTML = PROJECTS.map(p=>`
+    <a class="card" href="#p/${p.id}">
+      ${cardThumb(p)}
+      ${p.status?`<span class="flag">${p.status}</span>`:""}
+      <div class="cbody">
+        <h3>${p.title}</h3>
+        <p class="over">${p.over}</p>
+        <div class="meta"><span class="role">${p.role}</span><span>${p.date}</span><span class="open">View project &rarr;</span></div>
+      </div>
+    </a>`).join("");
+}
+
+function tblock(p){
+  let rows=`<div><span class="k">Role</span><span class="v">${p.role}</span></div>
+            <div><span class="k">Date</span><span class="v">${p.date}</span></div>`;
+  if(p.team) rows+=`<div class="wide"><span class="k">Team</span><span class="v">${p.team}</span></div>`;
+  if(p.tools) rows+=`<div class="wide"><span class="k">Tools</span><span class="v">${p.tools}</span></div>`;
+  return `<div class="tblock" aria-label="Project details">${rows}</div>`;
+}
+function docsHTML(p){
+  if(!p.docs||!p.docs.length) return "";
+  const rows=p.docs.map(d=>`<a class="doc" href="${d.src}" target="_blank" rel="noopener"><span class="doc-n">${d.name}</span><span class="doc-m">${d.type}${d.size?" &middot; "+d.size:""} &darr;</span></a>`).join("");
+  return `<div class="docs"><span class="docs-h">Documents</span>${rows}</div>`;
+}
+function galleryHTML(p){
+  if(!p.media.length){
+    return `<div class="gallery"><div class="pending"><b>Photos and video coming soon.</b><br>Drop them in <code>assets/projects/${p.id}/</code> and they'll show up here.</div></div>`;
+  }
+  const items=p.media.map((m,i)=>{
+    if(m.type==="video"){
+      const vert = m.w && m.h && m.h > m.w;
+      const ar = m.w && m.h ? ` style="aspect-ratio:${m.w}/${m.h}"` : "";
+      const cls = vert ? "fig vert" : "fig span";
+      return `<figure class="${cls}"><video controls preload="none" poster="${m.poster||''}" playsinline${ar}><source src="${m.src}" type="video/mp4"></video><figcaption>${m.cap||''}</figcaption></figure>`;
+    }
+    if(m.type==="model"){
+      return `<figure class="fig-model span"><div class="mv-box"><model-viewer src="${m.src}" camera-controls auto-rotate touch-action="pan-y" shadow-intensity="0.9" interaction-prompt="none" alt="${m.cap||''}"></model-viewer></div><figcaption>${m.cap||''} <span class="hint">Drag to rotate, scroll to zoom.</span></figcaption></figure>`;
+    }
+    return `<figure class="fig ${m.span?'span':''} ${m.tall?'tall':''}">
+      <button class="frame" data-lb="${i}" aria-label="Enlarge: ${(m.cap||'').replace(/"/g,'')}"><img src="${m.src}" alt="${m.cap||''}" loading="lazy"></button>
+      <figcaption>${m.cap||''}</figcaption></figure>`;
+  }).join("");
+  return `<div class="gallery">${items}</div>`;
+}
+function detailNav(idx){
+  const prev=PROJECTS[(idx-1+PROJECTS.length)%PROJECTS.length], next=PROJECTS[(idx+1)%PROJECTS.length];
+  return `<nav class="detail-nav" aria-label="Projects">
+    <a href="#p/${prev.id}"><span class="k">Previous</span>${prev.title}</a>
+    <a href="#p/${next.id}" style="text-align:right"><span class="k">Next</span>${next.title}</a></nav>`;
+}
+function buildDetail(p,idx){
+  projEl.innerHTML=`
+    <a class="back" href="#">&larr; All projects</a>
+    <div class="detail-head"><h1>${p.title}</h1><p class="lede">${p.lede}</p></div>
+    <div class="detail-grid">
+      <div class="writeup">${p.body}${docsHTML(p)}</div>
+      ${tblock(p)}
+    </div>
+    <h2 class="gallery-head">${p.media.length?'Drawings and build':'Media'}</h2>
+    ${galleryHTML(p)}
+    ${detailNav(idx)}`;
+  projEl.querySelectorAll("[data-lb]").forEach(btn=>{
+    btn.addEventListener("click",()=>openLightbox(p.media[+btn.dataset.lb]));
+  });
+}
+
+/* lightbox */
+let lb=null;
+function openLightbox(m){
+  closeLightbox();
+  lb=document.createElement("div");lb.className="lightbox";lb.setAttribute("role","dialog");lb.setAttribute("aria-modal","true");
+  lb.innerHTML=`<button class="x" aria-label="Close">&times;</button><img src="${m.src}" alt="${m.cap||''}"><figcaption>${m.cap||''}</figcaption>`;
+  lb.addEventListener("click",e=>{if(e.target===lb||e.target.classList.contains("x"))closeLightbox();});
+  document.body.appendChild(lb);document.body.style.overflow="hidden";
+}
+function closeLightbox(){if(lb){lb.remove();lb=null;document.body.style.overflow="";}}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLightbox();});
+
+/* router */
+function router(){
+  const h=location.hash;
+  const m=h.match(/^#p\/([\w-]+)$/);
+  if(m){
+    const idx=PROJECTS.findIndex(p=>p.id===m[1]);
+    if(idx>=0){
+      homeEl.hidden=true;projEl.hidden=false;
+      buildDetail(PROJECTS[idx],idx);
+      window.scrollTo(0,0);
+      return;
+    }
+  }
+  projEl.hidden=true;homeEl.hidden=false;closeLightbox();
+  if(["#work","#about","#contact"].includes(h)){
+    const t=document.querySelector(h);if(t)t.scrollIntoView({behavior:"smooth"});
+  }else if(!h||h==="#"){window.scrollTo(0,0);}
+}
+/* load the 3D viewer only if a project actually has a model */
+if(PROJECTS.some(p=>(p.media||[]).some(m=>m.type==="model"))){
+  const s=document.createElement("script");s.type="module";
+  s.src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js";
+  document.head.appendChild(s);
+}
+buildCards();
+window.addEventListener("hashchange",router);
+router();
+</script>
+</body>
+</html>
