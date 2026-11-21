@@ -54,11 +54,15 @@ img,video{max-width:100%;display:block}
 .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);padding:var(--space-4) 0;font-size:15px}
 .top .mark{font-weight:700;font-variation-settings:"wdth" 125;letter-spacing:-.01em;text-decoration:none}
 .top .mark{white-space:nowrap}
-@media(max-width:420px){.top{font-size:14px}.top nav{gap:12px}.top nav a.nav-cta{padding:6px 10px}}
+@media(max-width:420px){.top{font-size:14px}.top nav{gap:10px}.top nav a.nav-cta,.top nav a.nav-ghost{padding:6px 11px}}
 .top nav{display:flex;gap:var(--space-4);align-items:center}
 .top nav a.nav-cta{color:var(--sheet);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:7px 14px;font-weight:600;transition:background-color .2s ease,border-color .2s ease}
 .top nav a.nav-cta:hover{color:var(--sheet);background:var(--kapton-deep);border-color:var(--kapton-deep)}
 .top nav a.nav-cta:active{transform:translateY(1px)}
+.top nav a.nav-ghost{color:var(--ink);background:var(--sheet);border:1.5px solid var(--ink);border-radius:2px;padding:7px 14px;font-weight:600;transition:background-color .2s ease,color .2s ease}
+.top nav a.nav-ghost:hover{color:var(--sheet);background:var(--ink)}
+.top nav a.nav-ghost:active{transform:translateY(1px)}
+@media(max-width:560px){.top nav a:not(.nav-cta):not(.nav-ghost){display:none}}
 .top nav a{text-decoration:none;color:var(--ink-soft)}
 .top nav a:hover{color:var(--ink)}
 
@@ -205,6 +209,7 @@ footer{font-size:13px;color:var(--ink-soft);padding-bottom:var(--space-5)}
     <nav aria-label="Main">
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+      <a class="nav-ghost" href="/connect/">Connect</a>
       <a class="nav-cta" href="#work">Projects</a>
     </nav>
   </header>
@@ -266,6 +271,7 @@ footer{font-size:13px;color:var(--ink-soft);padding-bottom:var(--space-5)}
     <h2 id="contact-h">Let's talk.</h2>
     <div class="links">
       <a class="btn" href="mailto:ek808@hawaii.edu">ek808@hawaii.edu</a>
+      <a class="btn ghost" href="tel:+18083936031">(808) 393-6031</a>
       <a class="btn ghost" href="https://www.linkedin.com/in/edward-iv/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </section>

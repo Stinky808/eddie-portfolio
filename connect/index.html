@@ -31,7 +31,14 @@ body{
 }
 a{color:inherit}
 a:focus-visible{outline:2px solid var(--kapton);outline-offset:3px;border-radius:2px}
-.card{max-width:460px;margin:0 auto;padding:var(--space-5) var(--space-3) var(--space-5)}
+.top{max-width:460px;margin:0 auto;display:flex;justify-content:flex-end;padding:16px var(--space-3) 0}
+.top nav{display:flex;gap:14px;align-items:center}
+.top nav a{text-decoration:none;color:var(--ink-soft);font-size:15px}
+.top nav a:hover{color:var(--ink)}
+.top nav a.nav-cta{color:var(--sheet);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:7px 14px;font-weight:600;transition:background-color .2s ease,border-color .2s ease}
+.top nav a.nav-cta:hover{background:var(--kapton-deep);border-color:var(--kapton-deep)}
+.top nav a.nav-cta:active{transform:translateY(1px)}
+.card{max-width:460px;margin:0 auto;padding:var(--space-4) var(--space-3) var(--space-5)}
 
 .who{display:flex;gap:var(--space-3);align-items:center}
 .ph{position:relative;flex:0 0 auto;width:88px;height:88px;border:1.5px solid var(--ink);box-shadow:var(--lift);background:var(--sheet)}
@@ -64,6 +71,13 @@ h1{margin:0;font-weight:800;font-variation-settings:"wdth" 125;font-size:clamp(3
 </style>
 </head>
 <body>
+<header class="top">
+  <nav aria-label="Portfolio">
+    <a href="/#about">About</a>
+    <a href="/#contact">Contact</a>
+    <a class="nav-cta" href="/#work">Projects</a>
+  </nav>
+</header>
 <main class="card">
   <div class="who">
     <div class="ph"><img src="/assets/hero.jpg" alt="Eddie Kuoha IV"></div>
@@ -87,6 +101,7 @@ h1{margin:0;font-weight:800;font-variation-settings:"wdth" 125;font-size:clamp(3
   <a class="row" href="https://www.duolingo.com/profile/USERNAME" target="_blank" rel="noopener"><span class="n">Duolingo</span><span class="m">USERNAME</span></a>
   -->
   <a class="row" href="mailto:ek808@hawaii.edu"><span class="n">Email</span><span class="m">ek808@hawaii.edu</span></a>
+  <a class="row" href="tel:+18083936031"><span class="n">Phone</span><span class="m">(808) 393-6031</span></a>
   <a class="row" href="/assets/Kuoha_Edward_Resume.pdf"><span class="n">Resume</span><span class="m">PDF</span></a>
 
   <p class="foot"><a href="/">eddiekuoha.com</a></p>
